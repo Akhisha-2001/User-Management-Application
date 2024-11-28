@@ -1,0 +1,50 @@
+<link rel="stylesheet" href="/styles/userlogin.css">
+
+<div class="container">
+  <div class="header">
+    <h1><span class="l">L</span>OGIN</h1>
+  </div>
+  <form method="post" action="/user/login">
+    <input type="text" id="message" value="{{{message}}}" name="message" hidden>
+    <label for="uname">Email</label>
+    <input id="email" type="text" class="inp" name="email" required>
+    <label for="password">Password</label>
+    <input id="password" type="password" class="inp" name="password" required>
+    <button type="submit">Login</button>
+  </form>
+  <div class="signup">
+    <b>Don't have account?</b>
+    <a href="/user/register">Sign up</a>
+  </div>
+</div>
+
+<script>
+
+
+  document.addEventListener("DOMContentLoaded",function(){
+        document.querySelector('form').addEventListener('submit',formValidate)
+  })
+
+  const message = document.getElementById('message').value;
+    if(message){
+
+        Swal.fire(message);
+    }
+
+    function formValidate(e){
+        e.preventDefault();
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        //const emailRegex= /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9]+\.[a-zA-Z]{2}$/
+        
+        if(email == ""|| password == ""){
+            Swal.fire("All fields are required");
+            return false;
+        }
+
+        e.target.submit();
+        return true;
+    }
+
+
+</script>

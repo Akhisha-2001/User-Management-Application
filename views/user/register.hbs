@@ -1,0 +1,62 @@
+<link rel="stylesheet" href="/styles/userlogin.css">
+
+<div class="container">
+  <div class="header">
+    <h1><span class="l">S</span>ignUp</h1>
+  </div>
+  <form method="post" action="/user/register">
+
+  <input type="text" id="message" value="{{{message}}}" name="message" hidden>
+
+    <label for="email">Email</label>
+    <input id="email" type="text" class="inp" name="email">
+
+    <label for="psw">Password</label>
+    <input id="password" type="password" class="inp" name="password">
+
+    <label for="confirmPassword">Confirm Password</label>
+    <input id="confirmPassword" type="password" class="inp" name="confirmPassword">
+
+    <button type="submit">Sign Up</button>
+  </form>
+  <div class="signup">
+    <b>Already have account?</b>
+    <a href="/user/login">Login</a>
+  </div>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded",function(){
+        document.querySelector('form').addEventListener('submit',formValidate)
+    })
+
+    const message = document.getElementById('message').value;
+    if(message){
+        console.log(message);
+
+        Swal.fire(message);
+    }
+
+    function formValidate(e){
+        e.preventDefault();
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if(email == ""|| password == "" || confirmPassword == ""){
+            Swal.fire("All fields are required");
+            return false;
+        }else if(password != confirmPassword){
+            Swal.fire("Password do not match");
+            return false;
+        }else if(!emailRegex.test(email)){
+          swal.fire("Enter valid email id");
+          return ;
+        }
+
+        e.target.submit();
+        return true;
+    }
+
+</script>
